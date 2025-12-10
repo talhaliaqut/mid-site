@@ -196,30 +196,82 @@
     .contact-details a:hover { text-decoration: underline; }
 
     /* ===== Portfolio gallery ===== */
-    .portfolio-gallery {
-      display: grid;
-      gap: 1.25rem;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      margin-top: 1.5rem;
-    }
-    .portfolio-gallery figure {
-      margin: 0;
-    }
-    .portfolio-gallery img {
-      width: 100%;
-      display: block;
-      border-radius: 8px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .portfolio-gallery img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 10px 22px rgba(0,0,0,0.4);
-    }
-    .portfolio-gallery figcaption {
-      margin-top: 0.4rem;
-      font-size: 0.85rem;
-      color: #d3d3d6;
-    }
+ /* Portfolio grid with animated cards */
+.portfolio-gallery {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 1.5rem;
+}
+
+.portfolio-gallery figure {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #101119;
+  border: 1px solid #262735;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.portfolio-gallery figure::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top, rgba(121,199,201,0.16), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.portfolio-gallery img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  transform: scale(1);
+  transition: transform 0.2s ease;
+}
+
+/* Hover animation: lift, glow, zoom image */
+.portfolio-gallery figure:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px rgba(0,0,0,0.55);
+  border-color: #79c7c9;
+}
+
+.portfolio-gallery figure:hover::before {
+  opacity: 1;
+}
+
+.portfolio-gallery figure:hover img {
+  transform: scale(1.04);
+}
+
+/* Caption bar at bottom */
+.portfolio-gallery figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.78rem;
+  color: #f4f4f7;
+  background: linear-gradient(
+    to top,
+    rgba(5,7,11,0.92),
+    rgba(5,7,11,0.6),
+    transparent
+  );
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Slide caption up on hover */
+.portfolio-gallery figure:hover figcaption {
+  transform: translateY(0%);
+  opacity: 1;
+}
 
     /* Portfolio groups & subnav */
     .portfolio-group {
